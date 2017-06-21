@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   resources :games
   resources :users do
     collection do
-      get :change_staff
+      post :change_staff
     end
   end
   root to: 'games#index'

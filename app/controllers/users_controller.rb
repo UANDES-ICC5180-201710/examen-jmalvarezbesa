@@ -5,13 +5,22 @@ class UsersController < ApplicationController
   # GET /users.json
 
   def change_staff
+    @user = User.find(params[:id])
     if @user.is_staff
       @user.is_staff = false
     else
       @user.is_staff = true
     end
-    @user.save
-    redirect_to @user
+
+    respond_to do |format|
+      if @user.save
+        format.html { redirect_to @user, notice: 'Staff was successfully changed.' }
+        format.json { render :show, status: :created, location: @user }
+      else
+        format.html { render :new }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   def index
