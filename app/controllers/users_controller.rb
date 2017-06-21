@@ -3,6 +3,17 @@ class UsersController < ApplicationController
 
   # GET /users
   # GET /users.json
+
+  def change_staff
+    if @user.is_staff
+      @user.is_staff = false
+    else
+      @user.is_staff = true
+    end
+    @user.save
+    redirect_to @user
+  end
+
   def index
     @users = User.all
   end
